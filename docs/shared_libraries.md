@@ -19,3 +19,4 @@ Here are common utilities we developed so far.
 
 - **Ticket-Helper**: this is a wrapper for S3/MinIO to fetch or upload binary files. It's frequently used by I/O services to import or export attachments and store metadata informations.
 
+- *work in progess...*

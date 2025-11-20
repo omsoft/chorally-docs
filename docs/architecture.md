@@ -46,7 +46,7 @@ Here's what happens behind the scenes for different scenarios...
 
 **Ticket Replies: when agents reply to a ticket...**
 
-1. The reply is sent to **Message Service**
+1. The reply is sent to **Message Service** from Chorally UI
 2. Message Service sends a Kafka event to the specific **I/O channel**
 3. **I/O service** calls external APIs to send the reply on the social network
 4. The ID of the published reply is returned back with a "reconciliation event"
@@ -127,7 +127,7 @@ Authorization: Token [secret_token].[tenant]
 
 ### Kafka Events
 
-All Kafka events follow this simple structure:
+All Kafka events shared in the network MUST follow this simple structure:
 
 ```json
 {
@@ -154,6 +154,84 @@ We have a bunch of reserved topics:
 - **queue-triggers**: used by rules-engine to trigger rules evaluation
 
 **Each I/O service has its own topic** used for agent replies or other updates that must be sent to the social network (eg. trustpilot_review, facebook_comment, etc)
+
+## Redis
+
+The purpose of this section is to provide a top-level overview of how Redis is used, how it affects the whole ecosystem and what to do when Redis connection is unavailable. At the end, I describe a few solutions to avoid bottlenecks and system disruptions.
+
+### What Redis Is Used For
+Redis is a hard dependency of some internal functionalities of Easy-Chorally:
+
+- **Searchkick** is used for data indexing and stem queries; every time a record is
+saved, updated or destroyed, the application will push or pull a job to Redis and
+provide a highly efficient querying interface of tickets, messages, tags;
+  - used by message, author, search, and metadata services
+
+- **Sidekiq** provides a scalable and efficient thread-based background processing
+system and we’re using it to handle incoming messages (comments from social
+media), outbound messages (replies from operators), data exporting and so on,
+to offer low latency responses to all public APIs without blocking RTTs in the
+browser so users won’t wait for the results;
+  - used by most ruby apps to push/pull jobs from a set of Redis queues
+
+**The connection to Redis is forced at startup** and depends on a sentinel that will
+automatically return the IP address to a master node, ensuring read/write capabilities.
+
+From a container perspective Redis is used everywhere where:
+
+| Container | Uses Redis? | Purpose |
+| --------------- | ---------------  | --------------- |
+| Puma (api) | Yes | It’s a Searchkick dependency, but may be used also for caching, sessions, rate limiting, in-memory processing |
+| Sidekiq | Yes | Job queue and inter-process communication |
+| Karafka (Consumer) | Yes | It’s a Searchkick dependency, but may be used also for caching, sessions, rate limiting, in-memory processing |
+
+### What Happens When Redis Is Down
+#### 1. Sidekiq
+
+- **Startup**: At startup the application **immediately tries to connect to Redis** to fetch job queues. If Redis is unavailable, Sidekiq will:
+  - Retry the connection a few times.
+  - Then crash with a Redis::CannotConnectError or similar.
+
+- **Runtime**:
+  - If Redis becomes unavailable **after startup**, jobs stop processing.
+  - Sidekiq will log repeated “Redis connection error” messages, and may
+eventually exit.
+
+#### 2. Puma (API container)
+- **Startup**: a Redis client is instantiated at boot.
+  - If Redis is **unavailable** the container may fail to boot
+
+- **Runtime**:
+  - If Redis becomes unavailable after startup, Puma will continue to work and APIs will be available but **specific endpoints may raise Redis::CannotConnectError** until Redis returns back on (especially endpoints with any Searchkick query or background job scheduling)
+
+#### 3. Karafka (consumer container)
+- **Startup**: a Redis client is instantiated at boot.
+  - If Redis is **unavailable** the container may fail to boot
+
+- **Runtime**:
+  - If Redis becomes unavailable after startup, processing kafka messages may fail and they will be retried or delayed.
+
+
+### What to do AFTER Redis Connection has been fixed
+The quick and easy way to restore connections is to **reboot all containers**.
+
+They will automatically reconnect at startup as described above.
+
+### Solutions / Mitigations to Redis outages
+When Redis becomes unavailable there might be unintended consequences, and services that heavily depend on it will stop working as expected. Here are a few possible solutions to prevent bottlenecks that we can implement into the architecture:
+
+- Lazy Redis connection: avoid connecting to Redis at boot and print a warning
+message if Redis is unavailable.
+  - Pros: Useful to prevent blocking container the startup
+  - Cons: functionalities still won’t work as expected
+- Disable Searchkick async callbacks when Redis isn’t available
+  - Pros: read-only operation will work even when Redis is down
+  - Cons: indexing will perform synchronously and APIs will take longer to complete RTT
+- Add retry/wait logic at container startup
+  - Pros: container will eventually startup as soon as Redis becomes available
+  - Cons: container will wait until Redis is actually available
+- Circuit breaker: catch RedisConnectionError at runtime everywhere there’s a business critical task, log an error instead of crashing, and retry the process (where possible)
+
 
 ## Tecnologies
 

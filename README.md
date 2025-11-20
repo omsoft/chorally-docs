@@ -1,6 +1,14 @@
-# Website
+# Chorally Engineering Documentation
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+In this handbook you will learn about Chorally Engineering policies and microservices.
+
+This documentation was built for engineers/support team members that work on the platform, and does not contain business jargon or fancy words. Only practical informations that give you an head start and will make 10x faster at dealing with our complexities.
+
+If you’re new to the company, welcome! It’s important that you review at least the "Workflows" and "Architecture" sections in this handbook, so you know what to expect when writing software.
+
+Please note that this handbook may be updated at any time, and it’s up to you to keep abreast of those updates. Reach out to any of your senior peers if you have any questions about the information contained in this handbook.
+
+Built with pure markdown code using [Docusaurus](https://docusaurus.io/) and a bit of React.
 
 ## Installation
 

@@ -5,9 +5,9 @@ title: Getting Started
 
 # Getting Started
 
-In this handbook, there's everything you need about Chorally Engineering Policies and Coding Standards, plus a comprehensive guide to each microservice in the network. Hopefully it also offers a small peek at our culture.
+In this handbook you will learn about Chorally Engineering policies and microservices.
 
-This documentation was built from engineers to engineers, and does not contain business jargon or fancy words. Only practical informations that you can steal right away to increase velocity and efficiency while ensuring best practices every time.
+This documentation was built for engineers/support team members that work on the platform, and does not contain business jargon or fancy words. Only practical informations that give you an head start and will make 10x faster at dealing with our complexities.
 
 If you’re new to the company, welcome! It’s important that you review at least the "Workflows" and "Architecture" sections in this handbook, so you know what to expect when writing software.
 
@@ -29,6 +29,7 @@ Finally, you can explore the nitty-gritty details about each microservice in the
 | Microservice  | Description | Status |
 |-----------------------------------------------------------------------|------------------------------------------------------------------------------------------|-------|
 | [Message Service](catalog/message_service/index.md)                           | Stores inbound and outbound messages, tickets, origins and queues.                       | Attivo |
+| *work in progress...*                          |                      |  |
 <!-- | [Servizio Utenti](user_service/index.md)                              | Gestisce utenti, gruppi e ruoli all'interno di un Identity Server configurabile          | Attivo |
 | [Servizio Provisioning](provision_service/main.md)                    | Gestisce il  processo di onboarding e attivazione dei clienti nella piattaforma Chorally | Attivo |
 | [Servizio Author](author_service/index.md)                            | Gestisce autori interni ed esterni per il sistema                                        | Attivo |

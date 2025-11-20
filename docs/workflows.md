@@ -109,20 +109,13 @@ We set up CI/CD in order to automatically:
 - CD to staging should be automatic after merge.
 - CD to production should be automatic after tagging
 
-Don't forget to monitor deployments via logs and metrics for at least 30 minutes post-deploy.
-
-
-### Checklist per operation manuali
-
-Creazione istanza
-
-Attivazione nuovo servizio su istanze
-
-Deploy di una feature/bugfix
-
-Check dei tokens Meta & co
-
-
+### Deploy Checklist
+To trigger a new deploy follow these steps:
+- [x] Open a QA Tested Jira Ticket and click on "branches" to view list of services involved
+- [x] Read Jira comments left from developers to see deployment instructions
+- [x] Open GitLab repositories and add new tag
+- [x] Wait for CI/CD deployment
+- [x] Monitor logs and metrics of each deployed service for at least 30 minutes post-deploy.
 
 ---
 

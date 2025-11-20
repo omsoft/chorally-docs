@@ -6,11 +6,14 @@ tags: [backend, ruby, opensearch, sidekiq, kafka, mongo]
 
 # Overview & Purpose
 
-https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/message-service
-
 Message Service stores **inbound and outbound messages, tickets, origins (business profiles) & queues (groups of tickets)**.
 
 All interactions between customers and business profiles from multiple sources (social media, email providers, etc) are organized in threads/tickets/queues. These entities can be managed by agents through high-level APIs.
+
+| Resource  | Description |
+|---------------|---------|
+|https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/message-service|GitLab repository|
+|https://api.dev.chorally.com/message/v1/swagger_doc|Swagger OpenAPI|
 
 ## Tecnology Stack
 
