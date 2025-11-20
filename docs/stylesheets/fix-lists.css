@@ -1,0 +1,36 @@
+/* Restore visibility and proper styling for unordered and ordered lists across all documents.
+   This overrides any reset that may remove bullets/numbers. */
+
+/* Base lists inside Material content area */
+.md-typeset ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin: 0 0 1em 1.6em;
+  padding-left: 0; /* Material handles indent via margin */
+}
+
+.md-typeset ol {
+  list-style-type: decimal;
+  list-style-position: outside;
+  margin: 0 0 1em 1.6em;
+  padding-left: 0;
+}
+
+/* Nested unordered lists use alternate markers */
+.md-typeset ul ul { list-style-type: circle; }
+.md-typeset ul ul ul { list-style-type: square; }
+
+/* Nested ordered lists switch styles for clarity */
+.md-typeset ol ol { list-style-type: lower-alpha; }
+.md-typeset ol ol ol { list-style-type: lower-roman; }
+
+/* Ensure list items have spacing */
+.md-typeset li { margin: 0.25em 0; }
+
+/* In case any global reset sets list-style: none, force it back */
+.md-typeset ul, .md-typeset ol { list-style: revert-layer; }
+
+/* Fallback for browsers not supporting revert-layer */
+@supports not (list-style: revert-layer) {
+  .md-typeset ul, .md-typeset ol { list-style-position: outside; }
+}
