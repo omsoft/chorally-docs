@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Software Architecture | The Chorally Developers Handbook</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://omsoft.github.io/chorally-docs/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://omsoft.github.io/chorally-docs/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://omsoft.github.io/chorally-docs/docs/architecture"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Software Architecture | The Chorally Developers Handbook"><meta data-rh="true" name="description" content="Easy Chorally is a multi layer system where several microservices operate through synchronous restful APIs, async workers and realtime data pipelines to exchange data, consume events, and communicate with social media platforms."><meta data-rh="true" property="og:description" content="Easy Chorally is a multi layer system where several microservices operate through synchronous restful APIs, async workers and realtime data pipelines to exchange data, consume events, and communicate with social media platforms."><link data-rh="true" rel="icon" href="/chorally-docs/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://omsoft.github.io/chorally-docs/docs/architecture"><link data-rh="true" rel="alternate" href="https://omsoft.github.io/chorally-docs/docs/architecture" hreflang="en"><link data-rh="true" rel="alternate" href="https://omsoft.github.io/chorally-docs/docs/architecture" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Software Architecture","item":"https://omsoft.github.io/chorally-docs/docs/architecture"}]}</script><link rel="stylesheet" href="/chorally-docs/assets/css/styles.869cbad3.css">
-<script src="/chorally-docs/assets/js/runtime~main.200cfe67.js" defer="defer"></script>
-<script src="/chorally-docs/assets/js/main.80ccdf5f.js" defer="defer"></script>
+<script src="/chorally-docs/assets/js/runtime~main.6d6ebc8c.js" defer="defer"></script>
+<script src="/chorally-docs/assets/js/main.811e5486.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -50,7 +50,7 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="outbound-contents">Outbound contents<a href="#outbound-contents" class="hash-link" aria-label="Direct link to Outbound contents" title="Direct link to Outbound contents" translate="no">​</a></h3>
 <p><strong>Ticket Replies: when agents reply to a ticket...</strong></p>
 <ol>
-<li class="">The reply is sent to <strong>Message Service</strong></li>
+<li class="">The reply is sent to <strong>Message Service</strong> from Chorally UI</li>
 <li class="">Message Service sends a Kafka event to the specific <strong>I/O channel</strong></li>
 <li class=""><strong>I/O service</strong> calls external APIs to send the reply on the social network</li>
 <li class="">The ID of the published reply is returned back with a &quot;reconciliation event&quot;</li>
@@ -115,7 +115,7 @@
 <p>Here&#x27;s an example of both:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># JWT Signed Token</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Authorization: Bearer [jwt_token]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Secret Token</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Authorization: Token [secret_token].[tenant]</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kafka-events">Kafka Events<a href="#kafka-events" class="hash-link" aria-label="Direct link to Kafka Events" title="Direct link to Kafka Events" translate="no">​</a></h3>
-<p>All Kafka events follow this simple structure:</p>
+<p>All Kafka events shared in the network MUST follow this simple structure:</p>
 <div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  issuer</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;message-service&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">             </span><span class="token comment" style="color:#999988;font-style:italic">// name of service sending it</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  event</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;add&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">                          </span><span class="token comment" style="color:#999988;font-style:italic">// event name</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  data</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain">                                </span><span class="token comment" style="color:#999988;font-style:italic">// object with custom properties</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    body</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;Hey, can you help me?&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    external_id</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;1234567&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    received_at</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;2025-11-14T18:30:00Z&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
 <p>The TOPIC must be chosen appropriately. Its name represents the entity being sent.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="reserved-topics">Reserved Topics<a href="#reserved-topics" class="hash-link" aria-label="Direct link to Reserved Topics" title="Direct link to Reserved Topics" translate="no">​</a></h4>
@@ -129,6 +129,110 @@
 <li class=""><strong>queue-triggers</strong>: used by rules-engine to trigger rules evaluation</li>
 </ul>
 <p><strong>Each I/O service has its own topic</strong> used for agent replies or other updates that must be sent to the social network (eg. trustpilot_review, facebook_comment, etc)</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="redis">Redis<a href="#redis" class="hash-link" aria-label="Direct link to Redis" title="Direct link to Redis" translate="no">​</a></h2>
+<p>The purpose of this section is to provide a top-level overview of how Redis is used, how it affects the whole ecosystem and what to do when Redis connection is unavailable. At the end, I describe a few solutions to avoid bottlenecks and system disruptions.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-redis-is-used-for">What Redis Is Used For<a href="#what-redis-is-used-for" class="hash-link" aria-label="Direct link to What Redis Is Used For" title="Direct link to What Redis Is Used For" translate="no">​</a></h3>
+<p>Redis is a hard dependency of some internal functionalities of Easy-Chorally:</p>
+<ul>
+<li class="">
+<p><strong>Searchkick</strong> is used for data indexing and stem queries; every time a record is
+saved, updated or destroyed, the application will push or pull a job to Redis and
+provide a highly efficient querying interface of tickets, messages, tags;</p>
+<ul>
+<li class="">used by message, author, search, and metadata services</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Sidekiq</strong> provides a scalable and efficient thread-based background processing
+system and we’re using it to handle incoming messages (comments from social
+media), outbound messages (replies from operators), data exporting and so on,
+to offer low latency responses to all public APIs without blocking RTTs in the
+browser so users won’t wait for the results;</p>
+<ul>
+<li class="">used by most ruby apps to push/pull jobs from a set of Redis queues</li>
+</ul>
+</li>
+</ul>
+<p><strong>The connection to Redis is forced at startup</strong> and depends on a sentinel that will
+automatically return the IP address to a master node, ensuring read/write capabilities.</p>
+<p>From a container perspective Redis is used everywhere where:</p>
+<table><thead><tr><th>Container</th><th>Uses Redis?</th><th>Purpose</th></tr></thead><tbody><tr><td>Puma (api)</td><td>Yes</td><td>It’s a Searchkick dependency, but may be used also for caching, sessions, rate limiting, in-memory processing</td></tr><tr><td>Sidekiq</td><td>Yes</td><td>Job queue and inter-process communication</td></tr><tr><td>Karafka (Consumer)</td><td>Yes</td><td>It’s a Searchkick dependency, but may be used also for caching, sessions, rate limiting, in-memory processing</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-happens-when-redis-is-down">What Happens When Redis Is Down<a href="#what-happens-when-redis-is-down" class="hash-link" aria-label="Direct link to What Happens When Redis Is Down" title="Direct link to What Happens When Redis Is Down" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-sidekiq">1. Sidekiq<a href="#1-sidekiq" class="hash-link" aria-label="Direct link to 1. Sidekiq" title="Direct link to 1. Sidekiq" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>Startup</strong>: At startup the application <strong>immediately tries to connect to Redis</strong> to fetch job queues. If Redis is unavailable, Sidekiq will:</p>
+<ul>
+<li class="">Retry the connection a few times.</li>
+<li class="">Then crash with a Redis::CannotConnectError or similar.</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Runtime</strong>:</p>
+<ul>
+<li class="">If Redis becomes unavailable <strong>after startup</strong>, jobs stop processing.</li>
+<li class="">Sidekiq will log repeated “Redis connection error” messages, and may
+eventually exit.</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-puma-api-container">2. Puma (API container)<a href="#2-puma-api-container" class="hash-link" aria-label="Direct link to 2. Puma (API container)" title="Direct link to 2. Puma (API container)" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>Startup</strong>: a Redis client is instantiated at boot.</p>
+<ul>
+<li class="">If Redis is <strong>unavailable</strong> the container may fail to boot</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Runtime</strong>:</p>
+<ul>
+<li class="">If Redis becomes unavailable after startup, Puma will continue to work and APIs will be available but <strong>specific endpoints may raise Redis::CannotConnectError</strong> until Redis returns back on (especially endpoints with any Searchkick query or background job scheduling)</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-karafka-consumer-container">3. Karafka (consumer container)<a href="#3-karafka-consumer-container" class="hash-link" aria-label="Direct link to 3. Karafka (consumer container)" title="Direct link to 3. Karafka (consumer container)" translate="no">​</a></h4>
+<ul>
+<li class="">
+<p><strong>Startup</strong>: a Redis client is instantiated at boot.</p>
+<ul>
+<li class="">If Redis is <strong>unavailable</strong> the container may fail to boot</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Runtime</strong>:</p>
+<ul>
+<li class="">If Redis becomes unavailable after startup, processing kafka messages may fail and they will be retried or delayed.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-to-do-after-redis-connection-has-been-fixed">What to do AFTER Redis Connection has been fixed<a href="#what-to-do-after-redis-connection-has-been-fixed" class="hash-link" aria-label="Direct link to What to do AFTER Redis Connection has been fixed" title="Direct link to What to do AFTER Redis Connection has been fixed" translate="no">​</a></h3>
+<p>The quick and easy way to restore connections is to <strong>reboot all containers</strong>.</p>
+<p>They will automatically reconnect at startup as described above.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="solutions--mitigations-to-redis-outages">Solutions / Mitigations to Redis outages<a href="#solutions--mitigations-to-redis-outages" class="hash-link" aria-label="Direct link to Solutions / Mitigations to Redis outages" title="Direct link to Solutions / Mitigations to Redis outages" translate="no">​</a></h3>
+<p>When Redis becomes unavailable there might be unintended consequences, and services that heavily depend on it will stop working as expected. Here are a few possible solutions to prevent bottlenecks that we can implement into the architecture:</p>
+<ul>
+<li class="">Lazy Redis connection: avoid connecting to Redis at boot and print a warning
+message if Redis is unavailable.<!-- -->
+<ul>
+<li class="">Pros: Useful to prevent blocking container the startup</li>
+<li class="">Cons: functionalities still won’t work as expected</li>
+</ul>
+</li>
+<li class="">Disable Searchkick async callbacks when Redis isn’t available<!-- -->
+<ul>
+<li class="">Pros: read-only operation will work even when Redis is down</li>
+<li class="">Cons: indexing will perform synchronously and APIs will take longer to complete RTT</li>
+</ul>
+</li>
+<li class="">Add retry/wait logic at container startup<!-- -->
+<ul>
+<li class="">Pros: container will eventually startup as soon as Redis becomes available</li>
+<li class="">Cons: container will wait until Redis is actually available</li>
+</ul>
+</li>
+<li class="">Circuit breaker: catch RedisConnectionError at runtime everywhere there’s a business critical task, log an error instead of crashing, and retry the process (where possible)</li>
+</ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tecnologies">Tecnologies<a href="#tecnologies" class="hash-link" aria-label="Direct link to Tecnologies" title="Direct link to Tecnologies" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="languages--frameworks">Languages &amp; Frameworks<a href="#languages--frameworks" class="hash-link" aria-label="Direct link to Languages &amp; Frameworks" title="Direct link to Languages &amp; Frameworks" translate="no">​</a></h3>
 <ul>
@@ -156,6 +260,6 @@
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deployment">Deployment<a href="#deployment" class="hash-link" aria-label="Direct link to Deployment" title="Direct link to Deployment" translate="no">​</a></h2>
 <p>All microservices are designed to be distributed as Docker containers within Kubernetes clusters, and configured with environment variables.</p>
 <hr>
-<p><em>Latest update: 2025-11-14</em></p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/chorally-docs/docs/platform_overview"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Chorally Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/chorally-docs/docs/workflows"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Workflows</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types-of-services" class="table-of-contents__link toc-highlight">Types of Services</a></li><li><a href="#clusters" class="table-of-contents__link toc-highlight">Clusters</a></li><li><a href="#data-flow--events" class="table-of-contents__link toc-highlight">Data flow &amp; Events</a><ul><li><a href="#incoming-messages" class="table-of-contents__link toc-highlight">Incoming messages</a></li><li><a href="#outbound-contents" class="table-of-contents__link toc-highlight">Outbound contents</a></li><li><a href="#domain-provisioning" class="table-of-contents__link toc-highlight">Domain Provisioning</a></li><li><a href="#rules-execution" class="table-of-contents__link toc-highlight">Rules Execution</a></li></ul></li><li><a href="#point-to-point-communication" class="table-of-contents__link toc-highlight">Point-to-Point Communication</a><ul><li><a href="#api-ingresses" class="table-of-contents__link toc-highlight">API Ingresses</a></li><li><a href="#api-authorization" class="table-of-contents__link toc-highlight">API Authorization</a></li><li><a href="#kafka-events" class="table-of-contents__link toc-highlight">Kafka Events</a></li></ul></li><li><a href="#tecnologies" class="table-of-contents__link toc-highlight">Tecnologies</a><ul><li><a href="#languages--frameworks" class="table-of-contents__link toc-highlight">Languages &amp; Frameworks</a></li><li><a href="#database" class="table-of-contents__link toc-highlight">Database</a></li><li><a href="#hard-dependencies" class="table-of-contents__link toc-highlight">Hard dependencies</a></li></ul></li><li><a href="#deployment" class="table-of-contents__link toc-highlight">Deployment</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/intro">Intro</a></li><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/architecture">Architecture</a></li><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/workflows">Workflows</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Company</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">Website<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://tr-react.activadigital.it/" target="_blank" rel="noopener noreferrer" class="footer__link-item">TimeVision<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.atlassian.net/jira/software/projects/RCH/boards/58" target="_blank" rel="noopener noreferrer" class="footer__link-item">Jira RCH Board<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitLab<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Chorally. Built by the engineering team with Docusaurus.</div></div></div></footer></div>
+<p><em>Latest update: 2025-11-14</em></p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/chorally-docs/docs/platform_overview"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Chorally Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/chorally-docs/docs/workflows"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Workflows</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types-of-services" class="table-of-contents__link toc-highlight">Types of Services</a></li><li><a href="#clusters" class="table-of-contents__link toc-highlight">Clusters</a></li><li><a href="#data-flow--events" class="table-of-contents__link toc-highlight">Data flow &amp; Events</a><ul><li><a href="#incoming-messages" class="table-of-contents__link toc-highlight">Incoming messages</a></li><li><a href="#outbound-contents" class="table-of-contents__link toc-highlight">Outbound contents</a></li><li><a href="#domain-provisioning" class="table-of-contents__link toc-highlight">Domain Provisioning</a></li><li><a href="#rules-execution" class="table-of-contents__link toc-highlight">Rules Execution</a></li></ul></li><li><a href="#point-to-point-communication" class="table-of-contents__link toc-highlight">Point-to-Point Communication</a><ul><li><a href="#api-ingresses" class="table-of-contents__link toc-highlight">API Ingresses</a></li><li><a href="#api-authorization" class="table-of-contents__link toc-highlight">API Authorization</a></li><li><a href="#kafka-events" class="table-of-contents__link toc-highlight">Kafka Events</a></li></ul></li><li><a href="#redis" class="table-of-contents__link toc-highlight">Redis</a><ul><li><a href="#what-redis-is-used-for" class="table-of-contents__link toc-highlight">What Redis Is Used For</a></li><li><a href="#what-happens-when-redis-is-down" class="table-of-contents__link toc-highlight">What Happens When Redis Is Down</a></li><li><a href="#what-to-do-after-redis-connection-has-been-fixed" class="table-of-contents__link toc-highlight">What to do AFTER Redis Connection has been fixed</a></li><li><a href="#solutions--mitigations-to-redis-outages" class="table-of-contents__link toc-highlight">Solutions / Mitigations to Redis outages</a></li></ul></li><li><a href="#tecnologies" class="table-of-contents__link toc-highlight">Tecnologies</a><ul><li><a href="#languages--frameworks" class="table-of-contents__link toc-highlight">Languages &amp; Frameworks</a></li><li><a href="#database" class="table-of-contents__link toc-highlight">Database</a></li><li><a href="#hard-dependencies" class="table-of-contents__link toc-highlight">Hard dependencies</a></li></ul></li><li><a href="#deployment" class="table-of-contents__link toc-highlight">Deployment</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/intro">Intro</a></li><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/architecture">Architecture</a></li><li class="footer__item"><a class="footer__link-item" href="/chorally-docs/docs/workflows">Workflows</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Company</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">Website<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://tr-react.activadigital.it/" target="_blank" rel="noopener noreferrer" class="footer__link-item">TimeVision<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.atlassian.net/jira/software/projects/RCH/boards/58" target="_blank" rel="noopener noreferrer" class="footer__link-item">Jira RCH Board<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitLab<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Chorally. Built by the engineering team with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
