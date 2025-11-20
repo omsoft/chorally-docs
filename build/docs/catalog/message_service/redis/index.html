@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-catalog/message_service/redis" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Redis | The Chorally Developers Handbook</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://chorally.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://chorally.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://chorally.com/docs/catalog/message_service/redis"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Redis | The Chorally Developers Handbook"><meta data-rh="true" name="description" content="Message Service uses MongoDB come archivio dati primario, con le seguenti collezioni principali:"><meta data-rh="true" property="og:description" content="Message Service uses MongoDB come archivio dati primario, con le seguenti collezioni principali:"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://chorally.com/docs/catalog/message_service/redis"><link data-rh="true" rel="alternate" href="https://chorally.com/docs/catalog/message_service/redis" hreflang="en"><link data-rh="true" rel="alternate" href="https://chorally.com/docs/catalog/message_service/redis" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Redis","item":"https://chorally.com/docs/catalog/message_service/redis"}]}</script><link rel="stylesheet" href="/assets/css/styles.869cbad3.css">
+<script src="/assets/js/runtime~main.c646d1aa.js" defer="defer"></script>
+<script src="/assets/js/main.9e66cae7.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="Chorally" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="Chorally" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Chorally Docs</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitLab<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://chorally.atlassian.net/jira/software/projects/RCH/boards/58" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Jira RCH<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro"><span title="Getting Started" class="linkLabel_WmDU">Getting Started</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/platform_overview"><span title="Chorally Overview" class="linkLabel_WmDU">Chorally Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/architecture"><span title="Software Architecture" class="linkLabel_WmDU">Software Architecture</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/workflows"><span title="Workflows" class="linkLabel_WmDU">Workflows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/shared_libraries"><span title="Shared Libraries" class="linkLabel_WmDU">Shared Libraries</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/catalog/intro"><span title="catalog" class="categoryLinkLabel_W154">catalog</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/intro"><span title="Intro" class="linkLabel_WmDU">Intro</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/docs/catalog/message_service/intro"><span title="message_service" class="categoryLinkLabel_W154">message_service</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/intro"><span title="Overview &amp; Purpose" class="linkLabel_WmDU">Overview &amp; Purpose</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/architecture"><span title="Architecture" class="linkLabel_WmDU">Architecture</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/data_model"><span title="Data Model" class="linkLabel_WmDU">Data Model</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/api"><span title="API &amp; Authorization" class="linkLabel_WmDU">API &amp; Authorization</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/messaging"><span title="Kafka Events &amp; Async Work" class="linkLabel_WmDU">Kafka Events &amp; Async Work</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/catalog/message_service/redis"><span title="Redis" class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/troubleshooting"><span title="Troubleshooting" class="linkLabel_WmDU">Troubleshooting</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/catalog/message_service/changelog"><span title="Changelog" class="linkLabel_WmDU">Changelog</span></a></li></ul></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">catalog</span></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">message_service</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Redis</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Redis</h1></header>
+<p>Message Service uses MongoDB come archivio dati primario, con le seguenti collezioni principali:</p>
+<ol>
+<li class=""><strong>Messages</strong>: Rappresenta le comunicazioni individuali tra clienti e operatori</li>
+<li class=""><strong>Threads</strong>: Raggruppa messaggi correlati in una conversazione</li>
+<li class=""><strong>Tickets</strong>: Rappresenta i casi di supporto clienti contenenti messaggi</li>
+<li class=""><strong>Origins</strong>: Rappresenta i canali di comunicazione (social media, piattaforme di messaggistica)</li>
+<li class=""><strong>Queues</strong>: Organizza i ticket in base a regole specifiche</li>
+</ol>
+<p>Inoltre, ci sono documenti incorporati e collezioni correlate:</p>
+<ul>
+<li class=""><strong>QueueCounters</strong>: Incorporati nelle Queues per tracciare il conteggio dei ticket per stato</li>
+<li class=""><strong>TicketStateTransitions</strong>: Incorporati nei Tickets per tracciare i cambiamenti di stato</li>
+<li class=""><strong>AiMessages</strong>: Sottoclasse di Messages per contenuti generati dall&#x27;IA</li>
+<li class=""><strong>AiSuggestions</strong>: Correlati ai Tickets per risposte suggerite dall&#x27;IA</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="diagramma-uml-del-modello-dati">Diagramma UML del Modello Dati<a href="#diagramma-uml-del-modello-dati" class="hash-link" aria-label="Direct link to Diagramma UML del Modello Dati" title="Direct link to Diagramma UML del Modello Dati" translate="no">​</a></h2>
+<p>Il seguente diagramma UML illustra le entità principali del modello dati e le loro relazioni:</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezioni">Collezioni<a href="#collezioni" class="hash-link" aria-label="Direct link to Collezioni" title="Direct link to Collezioni" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-messages">Collezione Messages<a href="#collezione-messages" class="hash-link" aria-label="Direct link to Collezione Messages" title="Direct link to Collezione Messages" translate="no">​</a></h3>
+<p>Rappresenta le comunicazioni individuali tra clienti e operatori.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>author</code>: String (identificatore dell&#x27;autore del messaggio)</li>
+<li class=""><code>author_name</code>: String (nome dell&#x27;autore)</li>
+<li class=""><code>body</code>: String (contenuto del messaggio)</li>
+<li class=""><code>external_id</code>: String (identificatore dal sistema esterno)</li>
+<li class=""><code>reply_to</code>: String (riferimento al messaggio a cui si risponde)</li>
+<li class=""><code>reply_kind</code>: StringifiedSymbol (tipo di risposta: retweet, quote, reply, responder, bump)</li>
+<li class=""><code>attachments</code>: Array (lista di allegati)</li>
+<li class=""><code>received_at</code>: DateTime (quando il messaggio è stato ricevuto)</li>
+<li class=""><code>note</code>: Boolean (indica se il messaggio è una nota interna)</li>
+<li class=""><code>extra</code>: Hash (dati aggiuntivi)</li>
+<li class=""><code>shadowed</code>: Boolean (indica se il messaggio è nascosto nell&#x27;UI quando l&#x27;origine è disabilitata)</li>
+<li class=""><code>hidden</code>: Boolean (indica se il messaggio è nascosto dal canale social)</li>
+<li class=""><code>deleted</code>: Boolean (indica se il messaggio è eliminato dal canale ma visibile nell&#x27;UI)</li>
+<li class=""><code>is_operator_reply</code>: Boolean (indica se il messaggio proviene da un operatore)</li>
+<li class=""><code>is_escalation</code>: Boolean (indica se il messaggio è un&#x27;escalation)</li>
+<li class=""><code>is_external_reply</code>: Boolean (indica se il messaggio proviene da un sistema esterno)</li>
+<li class=""><code>template_id</code>: String (template utilizzato per il messaggio)</li>
+<li class=""><code>origin_id</code>: String (riferimento denormalizzato all&#x27;origine)</li>
+<li class=""><code>created_at</code>: DateTime (quando il documento è stato creato)</li>
+<li class=""><code>updated_at</code>: DateTime (quando il documento è stato aggiornato l&#x27;ultima volta)</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Appartiene a un Thread (opzionale)</li>
+<li class="">Appartiene a un Ticket</li>
+</ul>
+<p><strong>Indici:</strong></p>
+<ul>
+<li class=""><code>ticket_id</code>: Per interrogazioni efficienti dei messaggi per ticket</li>
+<li class=""><code>shadowed</code>: Per filtrare i messaggi nascosti</li>
+<li class=""><code>hidden</code>: Per filtrare i messaggi nascosti</li>
+<li class=""><code>deleted</code>: Per filtrare i messaggi eliminati</li>
+<li class=""><code>is_operator_reply</code>: Per filtrare le risposte degli operatori</li>
+<li class=""><code>is_external_reply</code>: Per filtrare le risposte esterne</li>
+<li class=""><code>is_escalation</code>: Per filtrare i messaggi di escalation</li>
+</ul>
+<p><strong>Ricerca:</strong></p>
+<ul>
+<li class="">Utilizza Searchkick per la ricerca full-text e l&#x27;indicizzazione</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-aimessages">Collezione AiMessages<a href="#collezione-aimessages" class="hash-link" aria-label="Direct link to Collezione AiMessages" title="Direct link to Collezione AiMessages" translate="no">​</a></h3>
+<p>Sottoclasse di Messages che rappresenta contenuti generati dall&#x27;IA.</p>
+<p><strong>Campi Aggiuntivi:</strong></p>
+<ul>
+<li class="">Eredita tutti i campi da Messages</li>
+<li class="">Può contenere campi specifici per l&#x27;IA</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Stesse di Messages</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-threads">Collezione Threads<a href="#collezione-threads" class="hash-link" aria-label="Direct link to Collezione Threads" title="Direct link to Collezione Threads" translate="no">​</a></h3>
+<p>Raggruppa messaggi correlati in una conversazione.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>external_id</code>: String (identificatore dal sistema esterno)</li>
+<li class=""><code>body</code>: String (contenuto del thread)</li>
+<li class=""><code>attachment_urls</code>: Array (lista di URL degli allegati)</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Appartiene a una Origin</li>
+<li class="">Ha molti Messages</li>
+</ul>
+<p><strong>Indici:</strong></p>
+<ul>
+<li class=""><code>external_id</code> e <code>origin_id</code>: Indice unico per l&#x27;identificazione del thread</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-tickets">Collezione Tickets<a href="#collezione-tickets" class="hash-link" aria-label="Direct link to Collezione Tickets" title="Direct link to Collezione Tickets" translate="no">​</a></h3>
+<p>Rappresenta i casi di supporto clienti contenenti messaggi.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>group</code>: String (gruppo assegnato al ticket)</li>
+<li class=""><code>owner</code>: String (proprietario del ticket)</li>
+<li class=""><code>owner_name</code>: String (nome del proprietario)</li>
+<li class=""><code>title</code>: String (titolo del ticket)</li>
+<li class=""><code>received_at</code>: DateTime (quando il ticket è stato ricevuto)</li>
+<li class=""><code>sentiment</code>: StringifiedSymbol (sentimento del ticket: negative, neutral, positive, not_assigned)</li>
+<li class=""><code>sequence</code>: Integer (numero sequenziale del ticket)</li>
+<li class=""><code>outbound</code>: Boolean (indica se il ticket è stato creato per un messaggio in uscita)</li>
+<li class=""><code>is_conversation</code>: Boolean (indica se il ticket è una conversazione)</li>
+<li class=""><code>followed_up_to</code>: DateTime (data fino a cui il ticket è stato seguito)</li>
+<li class=""><code>author</code>: String (autore denormalizzato)</li>
+<li class=""><code>last_message_received_at</code>: DateTime (quando è stato ricevuto l&#x27;ultimo messaggio)</li>
+<li class=""><code>last_customer_received_at</code>: DateTime (quando è stato ricevuto l&#x27;ultimo messaggio del cliente)</li>
+<li class=""><code>count_visible_messages</code>: Integer (conteggio dei messaggi visibili)</li>
+<li class=""><code>state</code>: String (stato del ticket: created, replied, closed, followedup, solved, pending, working)</li>
+<li class=""><code>closed_at</code>: DateTime (quando il ticket è stato chiuso)</li>
+<li class=""><code>created_at</code>: DateTime (quando il documento è stato creato)</li>
+<li class=""><code>updated_at</code>: DateTime (quando il documento è stato aggiornato l&#x27;ultima volta)</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Appartiene a una Origin</li>
+<li class="">Ha molti Messages</li>
+<li class="">Ha molti AiSuggestions</li>
+<li class="">Ha molti AiMessages</li>
+<li class="">Ha e appartiene a molte Queues</li>
+<li class="">Incorpora molti TicketStateTransitions</li>
+</ul>
+<p><strong>Indici:</strong></p>
+<ul>
+<li class=""><code>created_at</code>: Per ordinare per data di creazione</li>
+<li class=""><code>updated_at</code>: Per ordinare per data di aggiornamento</li>
+<li class=""><code>outbound</code>: Per filtrare i ticket in uscita</li>
+<li class=""><code>last_message_received_at</code>: Per ordinare per data dell&#x27;ultimo messaggio</li>
+</ul>
+<p><strong>Macchina a Stati:</strong></p>
+<ul>
+<li class="">Implementa una macchina a stati per gli stati dei ticket</li>
+<li class="">Stati: created, replied, closed, followedup, solved, pending, working</li>
+<li class="">Le transizioni tra stati sono gestite dal concern TicketStateMachine</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-origins">Collezione Origins<a href="#collezione-origins" class="hash-link" aria-label="Direct link to Collezione Origins" title="Direct link to Collezione Origins" translate="no">​</a></h3>
+<p>Rappresenta i canali di comunicazione da cui provengono i messaggi.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>name</code>: String (nome dell&#x27;origine)</li>
+<li class=""><code>external_id</code>: String (identificatore dal sistema esterno)</li>
+<li class=""><code>owner</code>: String (proprietario dell&#x27;origine)</li>
+<li class=""><code>kind</code>: StringifiedSymbol (tipo di origine: facebook_public, instagram_comment, x_mention, ecc.)</li>
+<li class=""><code>channel</code>: StringifiedSymbol (canale: facebook, instagram, whatsapp, x, ecc.)</li>
+<li class=""><code>active</code>: Boolean (indica se l&#x27;origine è attiva)</li>
+<li class=""><code>public</code>: Boolean (indica se l&#x27;origine è pubblica)</li>
+<li class=""><code>outbound</code>: Boolean (indica se l&#x27;origine supporta messaggi in uscita)</li>
+<li class=""><code>capabilities</code>: Hash (capacità dell&#x27;origine)</li>
+<li class=""><code>description</code>: String (descrizione dell&#x27;origine)</li>
+<li class=""><code>locking_name</code>: String (nome per il blocco)</li>
+<li class=""><code>locked_at</code>: Time (quando l&#x27;origine è stata bloccata)</li>
+<li class=""><code>close_after_solve</code>: Integer (ore dopo le quali chiudere i ticket risolti)</li>
+<li class=""><code>close_after_wait</code>: Integer (ore dopo le quali chiudere i ticket in attesa)</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Ha molti Threads</li>
+<li class="">Ha molti Tickets</li>
+</ul>
+<p><strong>Indici:</strong></p>
+<ul>
+<li class=""><code>external_id</code>, <code>owner</code>, e <code>kind</code>: Indice unico per l&#x27;identificazione dell&#x27;origine</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="collezione-queues">Collezione Queues<a href="#collezione-queues" class="hash-link" aria-label="Direct link to Collezione Queues" title="Direct link to Collezione Queues" translate="no">​</a></h3>
+<p>Organizza i ticket in base a regole specifiche.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>name</code>: String (nome della coda)</li>
+<li class=""><code>description</code>: String (descrizione della coda)</li>
+<li class=""><code>owner</code>: String (proprietario della coda)</li>
+<li class=""><code>order</code>: Integer (ordine di visualizzazione)</li>
+<li class=""><code>groups</code>: Array (gruppi associati alla coda)</li>
+<li class=""><code>users</code>: Array (utenti associati alla coda)</li>
+<li class=""><code>status</code>: Boolean (stato della coda)</li>
+<li class=""><code>rules</code>: Array (regole per la coda)</li>
+<li class=""><code>rule</code>: String (ID della regola dal rule-engine)</li>
+<li class=""><code>created_at</code>: DateTime (quando il documento è stato creato)</li>
+<li class=""><code>updated_at</code>: DateTime (quando il documento è stato aggiornato l&#x27;ultima volta)</li>
+</ul>
+<p><strong>Relazioni:</strong></p>
+<ul>
+<li class="">Ha e appartiene a molti Tickets</li>
+<li class="">Incorpora molti QueueCounters</li>
+</ul>
+<p><strong>Documenti Incorporati:</strong></p>
+<ul>
+<li class="">QueueCounters: Traccia il numero di ticket in ogni stato</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="documenti-incorporati">Documenti Incorporati<a href="#documenti-incorporati" class="hash-link" aria-label="Direct link to Documenti Incorporati" title="Direct link to Documenti Incorporati" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="queuecounter">QueueCounter<a href="#queuecounter" class="hash-link" aria-label="Direct link to QueueCounter" title="Direct link to QueueCounter" translate="no">​</a></h4>
+<p>Incorporato nelle Queues per tracciare il conteggio dei ticket per stato.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>name</code>: String (nome del contatore)</li>
+<li class=""><code>states</code>: Array (stati da contare)</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ticketstatetransition">TicketStateTransition<a href="#ticketstatetransition" class="hash-link" aria-label="Direct link to TicketStateTransition" title="Direct link to TicketStateTransition" translate="no">​</a></h4>
+<p>Incorporato nei Tickets per tracciare i cambiamenti di stato.</p>
+<p><strong>Campi:</strong></p>
+<ul>
+<li class=""><code>_id</code>: ObjectId (identificatore documento MongoDB)</li>
+<li class=""><code>namespace</code>: String (namespace dell&#x27;evento)</li>
+<li class=""><code>event</code>: String (evento che ha causato la transizione)</li>
+<li class=""><code>from</code>: String (stato prima della transizione)</li>
+<li class=""><code>to</code>: String (stato dopo la transizione)</li>
+<li class=""><code>created_at</code>: DateTime (quando è avvenuta la transizione)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="panoramica-delle-relazioni">Panoramica delle Relazioni<a href="#panoramica-delle-relazioni" class="hash-link" aria-label="Direct link to Panoramica delle Relazioni" title="Direct link to Panoramica delle Relazioni" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Origin → Ticket → Message</strong>:</p>
+<ul>
+<li class="">Una Origin ha molti Tickets</li>
+<li class="">Un Ticket ha molti Messages</li>
+<li class="">Un Message appartiene a un Ticket</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Origin → Thread → Message</strong>:</p>
+<ul>
+<li class="">Una Origin ha molti Threads</li>
+<li class="">Un Thread ha molti Messages</li>
+<li class="">Un Message può appartenere a un Thread (opzionale)</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Ticket ↔ Queue</strong>:</p>
+<ul>
+<li class="">Un Ticket può appartenere a molte Queues</li>
+<li class="">Una Queue può contenere molti Tickets</li>
+<li class="">Una Queue incorpora molti QueueCounters per tracciare i conteggi</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Ticket → TicketStateTransition</strong>:</p>
+<ul>
+<li class="">Un Ticket incorpora molti TicketStateTransitions che registrano i cambiamenti di stato</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="indicizzazione-e-ricerca">Indicizzazione e Ricerca<a href="#indicizzazione-e-ricerca" class="hash-link" aria-label="Direct link to Indicizzazione e Ricerca" title="Direct link to Indicizzazione e Ricerca" translate="no">​</a></h2>
+<ul>
+<li class="">I Messages sono indicizzati utilizzando Searchkick per la ricerca full-text</li>
+<li class="">Vari indici sono definiti sulle collezioni per interrogazioni efficienti</li>
+<li class="">I dati di ricerca per i messaggi includono informazioni denormalizzate dai ticket e dalle origini correlate</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="flusso-dei-dati">Flusso dei Dati<a href="#flusso-dei-dati" class="hash-link" aria-label="Direct link to Flusso dei Dati" title="Direct link to Flusso dei Dati" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Ricezione del Messaggio</strong>:</p>
+<ul>
+<li class="">Un messaggio viene ricevuto da un&#x27;origine (es. Facebook, Instagram)</li>
+<li class="">Il sistema crea o trova il thread associato</li>
+<li class="">Il sistema crea o trova il ticket associato</li>
+<li class="">Il messaggio viene salvato e associato al ticket e al thread</li>
+<li class="">Lo stato del ticket cambia in base al tipo di messaggio</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Invio del Messaggio</strong>:</p>
+<ul>
+<li class="">Un operatore crea un messaggio di risposta</li>
+<li class="">Il messaggio viene associato al ticket esistente</li>
+<li class="">Il messaggio viene inviato all&#x27;origine appropriata</li>
+<li class="">Lo stato del ticket cambia in base al tipo di messaggio</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Gestione dei Ticket</strong>:</p>
+<ul>
+<li class="">I ticket vengono organizzati in code in base a regole</li>
+<li class="">Gli operatori possono cambiare gli stati dei ticket</li>
+<li class="">I ticket possono essere chiusi automaticamente dopo un periodo di inattività</li>
+</ul>
+</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>Tags:</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/backend">backend</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/ruby">ruby</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/opensearch">opensearch</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/sidekiq">sidekiq</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/kafka">kafka</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/docs/tags/mongo">mongo</a></li></ul></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/catalog/message_service/messaging"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Kafka Events &amp; Async Work</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/catalog/message_service/troubleshooting"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Troubleshooting</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#diagramma-uml-del-modello-dati" class="table-of-contents__link toc-highlight">Diagramma UML del Modello Dati</a></li><li><a href="#collezioni" class="table-of-contents__link toc-highlight">Collezioni</a><ul><li><a href="#collezione-messages" class="table-of-contents__link toc-highlight">Collezione Messages</a></li><li><a href="#collezione-aimessages" class="table-of-contents__link toc-highlight">Collezione AiMessages</a></li><li><a href="#collezione-threads" class="table-of-contents__link toc-highlight">Collezione Threads</a></li><li><a href="#collezione-tickets" class="table-of-contents__link toc-highlight">Collezione Tickets</a></li><li><a href="#collezione-origins" class="table-of-contents__link toc-highlight">Collezione Origins</a></li><li><a href="#collezione-queues" class="table-of-contents__link toc-highlight">Collezione Queues</a></li><li><a href="#documenti-incorporati" class="table-of-contents__link toc-highlight">Documenti Incorporati</a></li></ul></li><li><a href="#panoramica-delle-relazioni" class="table-of-contents__link toc-highlight">Panoramica delle Relazioni</a></li><li><a href="#indicizzazione-e-ricerca" class="table-of-contents__link toc-highlight">Indicizzazione e Ricerca</a></li><li><a href="#flusso-dei-dati" class="table-of-contents__link toc-highlight">Flusso dei Dati</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Intro</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/architecture">Architecture</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/workflows">Workflows</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Company</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.com" target="_blank" rel="noopener noreferrer" class="footer__link-item">Website<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://tr-react.activadigital.it/" target="_blank" rel="noopener noreferrer" class="footer__link-item">TimeVision<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://chorally.atlassian.net/jira/software/projects/RCH/boards/58" target="_blank" rel="noopener noreferrer" class="footer__link-item">Jira RCH Board<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://gitlab.navarcos.ccoe-nc.com/chorally/easy-chorally/" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitLab<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Chorally. Built by the engineering team with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
